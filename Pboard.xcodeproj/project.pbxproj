@@ -8,11 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		500FB7B91EA4FFD9001C9DE9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500FB7B81EA4FFD9001C9DE9 /* AppDelegate.swift */; };
-		500FB7BB1EA4FFD9001C9DE9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500FB7BA1EA4FFD9001C9DE9 /* ViewController.swift */; };
+		500FB7BB1EA4FFD9001C9DE9 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500FB7BA1EA4FFD9001C9DE9 /* ListViewController.swift */; };
 		500FB7BE1EA4FFD9001C9DE9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 500FB7BC1EA4FFD9001C9DE9 /* Main.storyboard */; };
 		500FB7C01EA4FFD9001C9DE9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 500FB7BF1EA4FFD9001C9DE9 /* Assets.xcassets */; };
 		500FB7C31EA4FFD9001C9DE9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 500FB7C11EA4FFD9001C9DE9 /* LaunchScreen.storyboard */; };
 		500FB7CE1EA4FFDA001C9DE9 /* PboardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500FB7CD1EA4FFDA001C9DE9 /* PboardTests.swift */; };
+		500FB7D91EA5094A001C9DE9 /* PasteboardStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500FB7D81EA5094A001C9DE9 /* PasteboardStore.swift */; };
+		500FB7DC1EA6367D001C9DE9 /* Eventitic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 500FB7DB1EA6367D001C9DE9 /* Eventitic.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,7 +30,7 @@
 /* Begin PBXFileReference section */
 		500FB7B51EA4FFD9001C9DE9 /* Pboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		500FB7B81EA4FFD9001C9DE9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		500FB7BA1EA4FFD9001C9DE9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		500FB7BA1EA4FFD9001C9DE9 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		500FB7BD1EA4FFD9001C9DE9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		500FB7BF1EA4FFD9001C9DE9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		500FB7C21EA4FFD9001C9DE9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -36,6 +38,8 @@
 		500FB7C91EA4FFDA001C9DE9 /* PboardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PboardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		500FB7CD1EA4FFDA001C9DE9 /* PboardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PboardTests.swift; sourceTree = "<group>"; };
 		500FB7CF1EA4FFDA001C9DE9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		500FB7D81EA5094A001C9DE9 /* PasteboardStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasteboardStore.swift; sourceTree = "<group>"; };
+		500FB7DB1EA6367D001C9DE9 /* Eventitic.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Eventitic.framework; path = Carthage/Build/iOS/Eventitic.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +47,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				500FB7DC1EA6367D001C9DE9 /* Eventitic.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,6 +67,7 @@
 				500FB7B71EA4FFD9001C9DE9 /* Pboard */,
 				500FB7CC1EA4FFDA001C9DE9 /* PboardTests */,
 				500FB7B61EA4FFD9001C9DE9 /* Products */,
+				500FB7DA1EA6367D001C9DE9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -78,7 +84,8 @@
 			isa = PBXGroup;
 			children = (
 				500FB7B81EA4FFD9001C9DE9 /* AppDelegate.swift */,
-				500FB7BA1EA4FFD9001C9DE9 /* ViewController.swift */,
+				500FB7BA1EA4FFD9001C9DE9 /* ListViewController.swift */,
+				500FB7D81EA5094A001C9DE9 /* PasteboardStore.swift */,
 				500FB7BC1EA4FFD9001C9DE9 /* Main.storyboard */,
 				500FB7BF1EA4FFD9001C9DE9 /* Assets.xcassets */,
 				500FB7C11EA4FFD9001C9DE9 /* LaunchScreen.storyboard */,
@@ -96,6 +103,14 @@
 			path = PboardTests;
 			sourceTree = "<group>";
 		};
+		500FB7DA1EA6367D001C9DE9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				500FB7DB1EA6367D001C9DE9 /* Eventitic.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -106,6 +121,7 @@
 				500FB7B11EA4FFD9001C9DE9 /* Sources */,
 				500FB7B21EA4FFD9001C9DE9 /* Frameworks */,
 				500FB7B31EA4FFD9001C9DE9 /* Resources */,
+				500FB7DE1EA636AF001C9DE9 /* Copy Frameworks by Carthage */,
 			);
 			buildRules = (
 			);
@@ -196,13 +212,32 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		500FB7DE1EA636AF001C9DE9 /* Copy Frameworks by Carthage */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Eventitic.framework",
+			);
+			name = "Copy Frameworks by Carthage";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		500FB7B11EA4FFD9001C9DE9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				500FB7BB1EA4FFD9001C9DE9 /* ViewController.swift in Sources */,
+				500FB7BB1EA4FFD9001C9DE9 /* ListViewController.swift in Sources */,
 				500FB7B91EA4FFD9001C9DE9 /* AppDelegate.swift in Sources */,
+				500FB7D91EA5094A001C9DE9 /* PasteboardStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -344,6 +379,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = EPZSBGGQZS;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Pboard/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -358,6 +397,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = EPZSBGGQZS;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Pboard/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -416,6 +459,7 @@
 				500FB7D41EA4FFDA001C9DE9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		500FB7D51EA4FFDA001C9DE9 /* Build configuration list for PBXNativeTarget "PboardTests" */ = {
 			isa = XCConfigurationList;
@@ -424,6 +468,7 @@
 				500FB7D71EA4FFDA001C9DE9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

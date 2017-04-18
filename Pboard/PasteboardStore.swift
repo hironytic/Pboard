@@ -1,5 +1,5 @@
 //
-// ViewController.swift
+// PasteboardStore.swift
 // Pboard
 //
 // Copyright (c) 2017 Hironori Ichimiya <hiron@hironytic.com>
@@ -24,19 +24,38 @@
 //
 
 import UIKit
+import Eventitic
 
-class ViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-
+public struct ItemRepresentation {
+    var uti: String
+    var data: Any
 }
 
+public class PasteboardStore {
+    public static let shared = PasteboardStore()
+    
+    public private(set) var items: [[ItemRepresentation]] = []
+    public let onUpdate = EventSource<Void>()
+    private var lastChangeCount = 0
+    
+    private init() {
+        loadFromRealPasteboard()
+    }
+    
+    public func reload() {
+        if UIPasteboard.general.changeCount != lastChangeCount {
+            loadFromRealPasteboard()
+            onUpdate.fire(())
+        }
+    }
+    
+    private func loadFromRealPasteboard() {
+        let pb = UIPasteboard.general
+        lastChangeCount = pb.changeCount
+        items = pb.items.map({ item in
+            return item.map({ (key, value) in
+                return ItemRepresentation(uti: key, data: value)
+            })
+        })
+    }
+}
