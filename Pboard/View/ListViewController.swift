@@ -67,7 +67,7 @@ public class ListViewController: UITableViewController {
     }
 
     public override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "🔰Item \(section)"
+        return ResourceUtils.getString(format: R.String.itemHeaderFormat, section)
     }
     
     public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -93,18 +93,18 @@ public class ListViewController: UITableViewController {
 public func dataTypeString(of data: Any) -> String {
     switch data {
     case is String:
-        return "🔰String"
+        return ResourceUtils.getString(R.String.valueType_string)
     case is NSNumber:
-        return  "🔰Number"
+        return ResourceUtils.getString(R.String.valueType_number)
     case is UIImage:
-        return  "🔰Image"
+        return ResourceUtils.getString(R.String.valueType_image)
     case is UIColor:
-        return  "🔰Color"
+        return ResourceUtils.getString(R.String.valueType_color)
     case is URL:
-        return  "🔰URL"
+        return ResourceUtils.getString(R.String.valueType_URL)
     case is Data:
-        return  "🔰Data"
+        return ResourceUtils.getString(R.String.valueType_data)
     default:
-        return  "🔰Unknown"
+        return ResourceUtils.getString(R.String.valueType_unknown)
     }
 }

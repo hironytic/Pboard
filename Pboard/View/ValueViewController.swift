@@ -65,9 +65,9 @@ public class ValueViewController: UITableViewController {
     public override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch sectionTypes[section] {
         case .uti:
-            return "🔰UTI"
+            return ResourceUtils.getString(R.String.headerUti)
         case .value:
-            return "🔰Value" + " (\(dataTypeString(of: value)))"
+            return ResourceUtils.getString(format: R.String.headerValueFormat, dataTypeString(of: value))
         }
     }
     
