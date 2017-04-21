@@ -85,11 +85,9 @@
 		500FB7B71EA4FFD9001C9DE9 /* Pboard */ = {
 			isa = PBXGroup;
 			children = (
+				505D40711EAA4AB200A71A58 /* View */,
+				505D40721EAA4ABA00A71A58 /* Model */,
 				500FB7B81EA4FFD9001C9DE9 /* AppDelegate.swift */,
-				500FB7BA1EA4FFD9001C9DE9 /* ListViewController.swift */,
-				505D406F1EA8EB5300A71A58 /* ValueViewController.swift */,
-				500FB7D81EA5094A001C9DE9 /* PasteboardStore.swift */,
-				500FB7BC1EA4FFD9001C9DE9 /* Main.storyboard */,
 				500FB7BF1EA4FFD9001C9DE9 /* Assets.xcassets */,
 				500FB7C11EA4FFD9001C9DE9 /* LaunchScreen.storyboard */,
 				500FB7C41EA4FFD9001C9DE9 /* Info.plist */,
@@ -112,6 +110,32 @@
 				500FB7DB1EA6367D001C9DE9 /* Eventitic.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		505D40711EAA4AB200A71A58 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				505D40731EAA4B7200A71A58 /* Storyboard */,
+				500FB7BA1EA4FFD9001C9DE9 /* ListViewController.swift */,
+				505D406F1EA8EB5300A71A58 /* ValueViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		505D40721EAA4ABA00A71A58 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				500FB7D81EA5094A001C9DE9 /* PasteboardStore.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		505D40731EAA4B7200A71A58 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				500FB7BC1EA4FFD9001C9DE9 /* Main.storyboard */,
+			);
+			path = Storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
