@@ -27,8 +27,8 @@ import UIKit
 import Eventitic
 
 public struct ItemRepresentation {
-    var uti: String
-    var data: Any
+    public var uti: String
+    public var data: Any
 }
 
 public class PasteboardStore {

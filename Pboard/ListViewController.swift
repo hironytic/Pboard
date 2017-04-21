@@ -30,6 +30,13 @@ public class ListViewController: UITableViewController {
     private var items: [[ItemRepresentation]] = []
     private var listenerStore: ListenerStore? = nil
     
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.clearsSelectionOnViewWillAppear = false
+//        self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+    
     public override func viewWillAppear(_ animated: Bool) {
         handleUpdateItems()
 
@@ -60,33 +67,44 @@ public class ListViewController: UITableViewController {
     }
 
     public override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Item \(section)"
+        return "🔰Item \(section)"
     }
     
     public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let representation = items[indexPath.section][indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         cell.textLabel?.text = representation.uti
-        let type: String
-        switch representation.data {
-        case is String:
-            type = "String"
-        case is NSNumber:
-            type = "Number"
-        case is UIImage:
-            type = "Image"
-        case is UIColor:
-            type = "Color"
-        case is URL:
-            type = "URL"
-        case is Data:
-            type = "Data"
-        default:
-            type = "Unknown"
-        }
-        cell.detailTextLabel?.text = type
+        cell.detailTextLabel?.text = dataTypeString(of: representation.data)
         
         return cell
     }
+    
+    public override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let valueViewCotnroller = segue.destination as? ValueViewController else { return }
+        guard let cell = sender as? UITableViewCell else { return }
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        
+        let representation = items[indexPath.section][indexPath.row]
+        valueViewCotnroller.uti = representation.uti
+        valueViewCotnroller.value = representation.data
+    }
 }
 
+public func dataTypeString(of data: Any) -> String {
+    switch data {
+    case is String:
+        return "🔰String"
+    case is NSNumber:
+        return  "🔰Number"
+    case is UIImage:
+        return  "🔰Image"
+    case is UIColor:
+        return  "🔰Color"
+    case is URL:
+        return  "🔰URL"
+    case is Data:
+        return  "🔰Data"
+    default:
+        return  "🔰Unknown"
+    }
+}
