@@ -76,57 +76,26 @@ public class ValueViewController: UITableViewController {
         switch sectionTypes[indexPath.section] {
         case .uti:
             cell = tableView.dequeueReusableCell(withIdentifier: "StringCell", for: indexPath)
-            if let stringCell = cell as? StringCell {
-                stringCell.stringLabel.text = uti
-            }
+            (cell as! StringCell).stringValue = uti
         
         case .value:
-            cell = tableView.dequeueReusableCell(withIdentifier: "StringCell", for: indexPath)
-            if let stringCell = cell as? StringCell {
+            switch value {
+            case let image as UIImage:
+                cell = tableView.dequeueReusableCell(withIdentifier: "ImageCell", for: indexPath)
+                (cell as! ImageCell).imageValue = image
+                
+            default:
+                cell = tableView.dequeueReusableCell(withIdentifier: "StringCell", for: indexPath)
+                let stringCell = cell as! StringCell
                 if let descriptable = value as? CustomStringConvertible {
-                    stringCell.stringLabel.text = descriptable.description
+                    stringCell.stringValue = descriptable.description
                 } else {
-                    stringCell.stringLabel.text = ""
+                    stringCell.stringValue = ""
                 }
             }
         }
         return cell
     }
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
 
     /*
     // MARK: - Navigation
@@ -141,7 +110,16 @@ public class ValueViewController: UITableViewController {
 }
 
 public class StringCell: UITableViewCell {
-    @IBOutlet weak var stringLabel: UILabel!
+    @IBOutlet private weak var stringLabel: UILabel!
+    
+    public var stringValue: String? {
+        get {
+            return stringLabel.text
+        }
+        set {
+            stringLabel.text = newValue
+        }
+    }
     
     public override func awakeFromNib() {
         super.awakeFromNib()
@@ -156,4 +134,34 @@ public class StringCell: UITableViewCell {
         stringLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
     }
     
+}
+
+public class ImageCell: UITableViewCell {
+    @IBOutlet private weak var mainImageView: UIImageView!
+    
+    private var aspectRatioConstraint: NSLayoutConstraint?
+    
+    public var imageValue: UIImage {
+        get {
+            return mainImageView.image ?? UIImage()
+        }
+        set {
+            mainImageView.image = newValue
+
+            if let prevConstraint = aspectRatioConstraint {
+                prevConstraint.isActive = false
+            }
+            let constraint = NSLayoutConstraint(
+                item: mainImageView,
+                attribute:NSLayoutAttribute.height,
+                relatedBy:NSLayoutRelation.equal,
+                toItem: mainImageView,
+                attribute: NSLayoutAttribute.width,
+                multiplier: newValue.size.height / newValue.size.width,
+                constant:0)
+            constraint.priority = UILayoutPriorityRequired - 1  // to avoids constraints error caused with 'UIView-Encapsulated-Layout-Height'
+            constraint.isActive = true
+            aspectRatioConstraint = constraint
+        }
+    }
 }
