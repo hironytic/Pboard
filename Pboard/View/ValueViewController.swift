@@ -25,9 +25,29 @@
 
 import UIKit
 
+private protocol ValueRowDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+}
+
 public class ValueViewController: UITableViewController {
     public var uti: String? = nil
-    public var value: Any = ""
+    public var value: Any = "" {
+        didSet {
+            switch value {
+            case let stringValue as String:
+                valueRowDataSource = StringValueRowDataSource(value: stringValue)
+            case let imageValue as UIImage:
+                valueRowDataSource = ImageValueRowDataSource(value: imageValue)
+            case let urlValue as URL:
+                valueRowDataSource = URLValueRowDataSource(value: urlValue)
+            default:
+                valueRowDataSource = UnknownValueRowDataSource(value: value)
+            }
+        }
+    }
+    
+    private var valueRowDataSource: ValueRowDataSource = StringValueRowDataSource(value: "")
     
     private enum SectionType {
         case uti
@@ -58,7 +78,7 @@ public class ValueViewController: UITableViewController {
         case .uti:
             return 1
         case .value:
-            return 1    // TODO:
+            return valueRowDataSource.tableView(tableView, numberOfRowsInSection: section)
         }
     }
 
@@ -75,24 +95,11 @@ public class ValueViewController: UITableViewController {
         let cell: UITableViewCell
         switch sectionTypes[indexPath.section] {
         case .uti:
-            cell = tableView.dequeueReusableCell(withIdentifier: "StringCell", for: indexPath)
+            cell = tableView.dequeueReusableCell(withIdentifier: R.Id.stringCell, for: indexPath)
             (cell as! StringCell).stringValue = uti
         
         case .value:
-            switch value {
-            case let image as UIImage:
-                cell = tableView.dequeueReusableCell(withIdentifier: "ImageCell", for: indexPath)
-                (cell as! ImageCell).imageValue = image
-                
-            default:
-                cell = tableView.dequeueReusableCell(withIdentifier: "StringCell", for: indexPath)
-                let stringCell = cell as! StringCell
-                if let descriptable = value as? CustomStringConvertible {
-                    stringCell.stringValue = descriptable.description
-                } else {
-                    stringCell.stringValue = ""
-                }
-            }
+            cell = valueRowDataSource.tableView(tableView, cellForRowAt: indexPath)
         }
         return cell
     }
@@ -107,6 +114,96 @@ public class ValueViewController: UITableViewController {
     }
     */
 
+}
+
+private class StringValueRowDataSource: ValueRowDataSource {
+    private let value: String
+    
+    public init(value: String) {
+        self.value = value
+    }
+    
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: R.Id.stringCell, for: indexPath)
+        (cell as! StringCell).stringValue = value
+        return cell
+    }
+}
+
+private class ImageValueRowDataSource: ValueRowDataSource {
+    private let value: UIImage
+    
+    public init(value: UIImage) {
+        self.value = value
+    }
+
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: R.Id.imageCell, for: indexPath)
+        (cell as! ImageCell).imageValue = value
+        return cell
+    }
+}
+
+private class URLValueRowDataSource: ValueRowDataSource {
+    private let value: URL
+    
+    public init(value: URL) {
+        self.value = value
+    }
+    
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 2
+    }
+    
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        switch indexPath.row {
+        case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: R.Id.stringCell, for: indexPath)
+            (cell as! StringCell).stringValue = value.absoluteString
+            return cell
+
+        case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: R.Id.actionCell, for: indexPath)
+            (cell as! ActionCell).title = "🔰Open This URL"
+            return cell
+        
+        default:
+            let cell = tableView.dequeueReusableCell(withIdentifier: R.Id.stringCell, for: indexPath)
+            (cell as! StringCell).stringValue = ""
+            return cell
+        }
+    }
+}
+
+private class UnknownValueRowDataSource: ValueRowDataSource {
+    private let value: Any
+    
+    public init(value: Any) {
+        self.value = value
+    }
+    
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: R.Id.stringCell, for: indexPath)
+        let stringCell = cell as! StringCell
+        if let descriptable = value as? CustomStringConvertible {
+            stringCell.stringValue = descriptable.description
+        } else {
+            stringCell.stringValue = ""
+        }
+        return cell
+    }
 }
 
 public class StringCell: UITableViewCell {
@@ -162,6 +259,21 @@ public class ImageCell: UITableViewCell {
             constraint.priority = UILayoutPriorityRequired - 1  // to avoids constraints error caused with 'UIView-Encapsulated-Layout-Height'
             constraint.isActive = true
             aspectRatioConstraint = constraint
+        }
+    }
+}
+
+public class ActionCell: UITableViewCell {
+    public override func awakeFromNib() {
+        self.textLabel?.textColor = self.tintColor
+    }
+    
+    public var title: String? {
+        get {
+            return self.textLabel?.text
+        }
+        set {
+            self.textLabel?.text = newValue
         }
     }
 }

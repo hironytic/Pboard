@@ -72,7 +72,7 @@ public class ListViewController: UITableViewController {
     
     public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let representation = items[indexPath.section][indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: R.Id.cell, for: indexPath)
         cell.textLabel?.text = representation.uti
         cell.detailTextLabel?.text = dataTypeString(of: representation.data)
         

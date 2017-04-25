@@ -20,6 +20,7 @@
 		505D407E1EAA4C7E00A71A58 /* R.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505D40791EAA4C7E00A71A58 /* R.swift */; };
 		505D407F1EAA4C7E00A71A58 /* ResourceUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505D407A1EAA4C7E00A71A58 /* ResourceUtils.swift */; };
 		505D40801EAA4C7E00A71A58 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 505D407C1EAA4C7E00A71A58 /* Localizable.strings */; };
+		505D40821EAF94BB00A71A58 /* R+Id.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505D40811EAF94BB00A71A58 /* R+Id.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +51,7 @@
 		505D40791EAA4C7E00A71A58 /* R.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.swift; sourceTree = "<group>"; };
 		505D407A1EAA4C7E00A71A58 /* ResourceUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceUtils.swift; sourceTree = "<group>"; };
 		505D407C1EAA4C7E00A71A58 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		505D40811EAF94BB00A71A58 /* R+Id.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "R+Id.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,8 +153,9 @@
 			isa = PBXGroup;
 			children = (
 				505D407B1EAA4C7E00A71A58 /* Strings */,
-				505D40781EAA4C7E00A71A58 /* R+String.swift */,
 				505D40791EAA4C7E00A71A58 /* R.swift */,
+				505D40811EAF94BB00A71A58 /* R+Id.swift */,
+				505D40781EAA4C7E00A71A58 /* R+String.swift */,
 				505D407A1EAA4C7E00A71A58 /* ResourceUtils.swift */,
 			);
 			path = Resource;
@@ -298,6 +301,7 @@
 				505D407D1EAA4C7E00A71A58 /* R+String.swift in Sources */,
 				500FB7D91EA5094A001C9DE9 /* PasteboardStore.swift in Sources */,
 				505D407F1EAA4C7E00A71A58 /* ResourceUtils.swift in Sources */,
+				505D40821EAF94BB00A71A58 /* R+Id.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
