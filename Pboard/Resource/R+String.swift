@@ -41,5 +41,7 @@ public extension R {
         
         public static let headerUti = "Pboard.headerUti"
         public static let headerValueFormat = "Pboard.headerValueFormat"
+        
+        public static let openThisURL = "Pboard.openThisURL"
     }
 }

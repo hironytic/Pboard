@@ -28,6 +28,13 @@ import UIKit
 private protocol ValueRowDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+}
+
+extension ValueRowDataSource {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // Do nothing
+    }
 }
 
 public class ValueViewController: UITableViewController {
@@ -104,6 +111,15 @@ public class ValueViewController: UITableViewController {
         return cell
     }
 
+    public override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch sectionTypes[indexPath.section] {
+        case .value:
+            valueRowDataSource.tableView(tableView, didSelectRowAt: indexPath)
+        default:
+            break
+        }
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -172,13 +188,24 @@ private class URLValueRowDataSource: ValueRowDataSource {
 
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: R.Id.actionCell, for: indexPath)
-            (cell as! ActionCell).title = "🔰Open This URL"
+            (cell as! ActionCell).title = ResourceUtils.getString(R.String.openThisURL)
             return cell
         
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: R.Id.stringCell, for: indexPath)
             (cell as! StringCell).stringValue = ""
             return cell
+        }
+    }
+    
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        switch indexPath.row {
+        case 1:
+            UIApplication.shared.openURL(value)
+            
+        default:
+            break
         }
     }
 }
