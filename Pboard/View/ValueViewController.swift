@@ -319,7 +319,13 @@ private class UnknownValueRowDataSource: ValueRowDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: R.Id.stringCell, for: indexPath)
         let stringCell = cell as! StringCell
         if let descriptable = value as? CustomStringConvertible {
-            stringCell.stringValue = descriptable.description
+            let LIMIT = 128
+            var description = descriptable.description
+            if description.characters.count > LIMIT {
+                let index = description.index(description.startIndex, offsetBy: LIMIT)
+                description = description.substring(to: index) + "…"
+            }
+            stringCell.stringValue = description
         } else {
             stringCell.stringValue = ""
         }
