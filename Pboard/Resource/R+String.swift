@@ -29,6 +29,8 @@ public extension R {
     public struct String {
         private init() { }
         
+        public static let alert_OK = "Pboard.alert_OK"
+        
         public static let valueType_string = "Pboard.valueType_string"
         public static let valueType_number = "Pboard.valueType_number"
         public static let valueType_image = "Pboard.valueType_image"
@@ -43,5 +45,12 @@ public extension R {
         public static let headerValueFormat = "Pboard.headerValueFormat"
         
         public static let openThisURL = "Pboard.openThisURL"
+        
+        public static let dataBytesFormat = "Pboard.dataBytesFormat"
+        public static let sendToITunes = "Pboard.sendToITunes"
+        public static let dataFileNameFormat = "Pboard.dataFileNameFormat"
+        public static let failedToSendToITunes = "Pboard.failedToSendToITunes"
+        public static let sentToITunes = "Pboard.sentToITunes"
+        
     }
 }

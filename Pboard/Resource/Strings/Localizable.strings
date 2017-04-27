@@ -23,6 +23,8 @@
    THE SOFTWARE.
 */
 
+"Pboard.alert_OK" = "OK";
+
 "Pboard.valueType_string" = "String";
 "Pboard.valueType_number" = "Number";
 "Pboard.valueType_image" = "Image";
@@ -37,3 +39,9 @@
 "Pboard.headerValueFormat" = "Value (%@)";
 
 "Pboard.openThisURL" = "Open This URL";
+
+"Pboard.dataBytesFormat" = "(%@ bytes)";
+"Pboard.sendToITunes" = "Send to iTunes";
+"Pboard.dataFileNameFormat" = "%@.dat";
+"Pboard.failedToSendToITunes" = "Failed";
+"Pboard.sentToITunes" = "Sent";

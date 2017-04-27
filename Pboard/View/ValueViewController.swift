@@ -48,6 +48,8 @@ public class ValueViewController: UITableViewController {
                 valueRowDataSource = ImageValueRowDataSource(value: imageValue)
             case let urlValue as URL:
                 valueRowDataSource = URLValueRowDataSource(value: urlValue)
+            case let dataValue as Data:
+                valueRowDataSource = DataValueRowDataSource(viewController: self, value: dataValue)
             default:
                 valueRowDataSource = UnknownValueRowDataSource(value: value)
             }
@@ -207,6 +209,98 @@ private class URLValueRowDataSource: ValueRowDataSource {
         default:
             break
         }
+    }
+}
+
+private class DataValueRowDataSource: ValueRowDataSource {
+    private let value: Data
+    private weak var viewController: ValueViewController?
+    
+    public init(viewController: ValueViewController, value: Data) {
+        self.viewController = viewController
+        self.value = value
+    }
+
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 2
+    }
+
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        switch indexPath.row {
+        case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: R.Id.stringCell, for: indexPath)
+            (cell as! StringCell).stringValue = makeValueString()
+            return cell
+            
+        case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: R.Id.actionCell, for: indexPath)
+            (cell as! ActionCell).title = ResourceUtils.getString(R.String.sendToITunes)
+            return cell
+            
+        default:
+            let cell = tableView.dequeueReusableCell(withIdentifier: R.Id.stringCell, for: indexPath)
+            (cell as! StringCell).stringValue = ""
+            return cell
+        }
+    }
+
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        switch indexPath.row {
+        case 1:
+            let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+            let documentsURL = URL(fileURLWithPath: documentsPath)
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyyMMddHHmmss"
+            let postfix = dateFormatter.string(from: Date())
+            let fileName = ResourceUtils.getString(format: R.String.dataFileNameFormat, postfix)
+            let fileURL = documentsURL.appendingPathComponent(fileName)
+            do {
+                try value.write(to: fileURL, options: .atomic)
+            } catch let error {
+                let ac = UIAlertController(title: ResourceUtils.getString(R.String.failedToSendToITunes),
+                                           message: error.localizedDescription,
+                                           preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: ResourceUtils.getString(R.String.alert_OK),
+                                           style: .default,
+                                           handler: nil))
+                viewController?.present(ac, animated: true, completion: nil)
+                return
+            }
+            
+            let ac = UIAlertController(title: ResourceUtils.getString(R.String.sentToITunes),
+                                       message: fileName,
+                                       preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: ResourceUtils.getString(R.String.alert_OK),
+                                       style: .default,
+                                       handler: nil))
+            viewController?.present(ac, animated: true, completion: nil)
+            
+        default:
+            break
+        }
+    }
+    
+    private func makeValueString() -> String {
+        let DISPLAY_SIZE = 64
+        
+        let data = (value.count <= DISPLAY_SIZE) ? value : value.subdata(in: Range<Data.Index>(0 ..< DISPLAY_SIZE))
+        var str = ""
+        for byte in data {
+            str += String(format: "%02X ", byte)
+        }
+        if value.count > DISPLAY_SIZE {
+            str += "…"
+        }
+        
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.usesGroupingSeparator = true
+        formatter.groupingSeparator = NSLocale.current.groupingSeparator
+        let sizeStr = formatter.string(for: value.count) ?? ""
+        
+        str += "\n\n" + ResourceUtils.getString(format: R.String.dataBytesFormat, sizeStr)
+        return str
     }
 }
 
