@@ -47,6 +47,12 @@ platform :ios do
     # frameit
   end
 
+  lane :create_app_icons do
+    appicon(appicon_image_file: 'Artwork/AppIcon.png',
+      appicon_devices: [:ipad, :iphone],
+      appicon_path: 'Pboard/Assets.xcassets')
+  end
+
   # You can define as many lanes as you want
 
   after_all do |lane|
