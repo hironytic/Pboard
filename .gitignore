@@ -23,6 +23,7 @@ DerivedData
 Carthage/
 
 # fastlane specific
+fastlane/README.md
 fastlane/report.xml
 
 # deliver temporary files
