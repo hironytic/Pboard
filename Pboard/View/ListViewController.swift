@@ -32,6 +32,9 @@ public class ListViewController: UITableViewController {
     
     public override func viewDidLoad() {
         super.viewDidLoad()
+
+        tableView.estimatedRowHeight = 40
+        tableView.rowHeight = UITableViewAutomaticDimension
         
         self.clearsSelectionOnViewWillAppear = false
 //        self.navigationItem.rightBarButtonItem = self.editButtonItem()
@@ -72,9 +75,9 @@ public class ListViewController: UITableViewController {
     
     public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let representation = items[indexPath.section][indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: R.Id.cell, for: indexPath)
-        cell.textLabel?.text = representation.uti
-        cell.detailTextLabel?.text = dataTypeString(of: representation.data)
+        let cell = tableView.dequeueReusableCell(withIdentifier: R.Id.cell, for: indexPath) as! RepresentationCell
+        cell.typeIDLabel.text = representation.uti
+        cell.dataTypeLabel.text = dataTypeString(of: representation.data)
         
         return cell
     }
@@ -87,6 +90,25 @@ public class ListViewController: UITableViewController {
         let representation = items[indexPath.section][indexPath.row]
         valueViewCotnroller.uti = representation.uti
         valueViewCotnroller.value = representation.data
+    }
+}
+
+public class RepresentationCell: UITableViewCell {
+    @IBOutlet weak var typeIDLabel: UILabel!
+    @IBOutlet weak var dataTypeLabel: UILabel!
+    
+    public override func awakeFromNib() {
+        super.awakeFromNib()
+        NotificationCenter.default.addObserver(self, selector: #selector(RepresentationCell.preferredContentSizeChanged(_:)), name: NSNotification.Name.UIContentSizeCategoryDidChange, object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIContentSizeCategoryDidChange, object: nil)
+    }
+    
+    public func preferredContentSizeChanged(_ notification: Notification) {
+        typeIDLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
+        dataTypeLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
     }
 }
 
