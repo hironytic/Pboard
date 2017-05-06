@@ -391,16 +391,29 @@ public class ImageCell: UITableViewCell {
 }
 
 public class ActionCell: UITableViewCell {
-    public override func awakeFromNib() {
-        self.textLabel?.textColor = self.tintColor
-    }
-    
+    @IBOutlet private weak var actionLabel: UILabel!
+
     public var title: String? {
         get {
-            return self.textLabel?.text
+            return self.actionLabel.text
         }
         set {
-            self.textLabel?.text = newValue
+            self.actionLabel.text = newValue
         }
+    }
+    
+    public override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        self.actionLabel.textColor = self.tintColor
+        NotificationCenter.default.addObserver(self, selector: #selector(ActionCell.preferredContentSizeChanged(_:)), name: NSNotification.Name.UIContentSizeCategoryDidChange, object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIContentSizeCategoryDidChange, object: nil)
+    }
+    
+    public func preferredContentSizeChanged(_ notification: Notification) {
+        actionLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
     }
 }
