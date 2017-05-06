@@ -25,6 +25,8 @@
 
 "Pboard.alert_OK" = "OK";
 
+"Pboard.noItemsFound" = "No items on pasteboard.";
+
 "Pboard.valueType_string" = "String";
 "Pboard.valueType_number" = "Number";
 "Pboard.valueType_image" = "Image";

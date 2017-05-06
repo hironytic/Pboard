@@ -31,6 +31,8 @@ public extension R {
         
         public static let alert_OK = "Pboard.alert_OK"
         
+        public static let noItemsFound = "Pboard.noItemsFound"
+        
         public static let valueType_string = "Pboard.valueType_string"
         public static let valueType_number = "Pboard.valueType_number"
         public static let valueType_image = "Pboard.valueType_image"

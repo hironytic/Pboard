@@ -27,12 +27,26 @@ import UIKit
 import Eventitic
 
 public class ListViewController: UITableViewController {
+    private var noItemsLabel: UILabel!
+    
     private var items: [[ItemRepresentation]] = []
     private var listenerStore: ListenerStore? = nil
     
     public override func viewDidLoad() {
         super.viewDidLoad()
 
+        let noItemsLabelParent = UIView()
+        tableView.backgroundView = noItemsLabelParent
+        noItemsLabel = UILabel()
+        noItemsLabel.text = ResourceUtils.getString(R.String.noItemsFound)
+        noItemsLabel.textColor = UIColor.lightGray
+        noItemsLabel.sizeToFit()
+        noItemsLabel.translatesAutoresizingMaskIntoConstraints = false
+        noItemsLabelParent.addSubview(noItemsLabel)
+        let horizontalConstraint = NSLayoutConstraint(item: noItemsLabel, attribute: .centerX, relatedBy: .equal, toItem: noItemsLabelParent, attribute: .centerX, multiplier: 1.0, constant: 0.0)
+        let verticalConstraint = NSLayoutConstraint(item: noItemsLabel, attribute: .centerY, relatedBy: .equal, toItem: noItemsLabelParent, attribute: .centerY, multiplier: 1.0, constant: 0.0)
+        noItemsLabelParent.addConstraints([horizontalConstraint, verticalConstraint])
+        
         tableView.estimatedRowHeight = 40
         tableView.rowHeight = UITableViewAutomaticDimension
         
@@ -58,6 +72,7 @@ public class ListViewController: UITableViewController {
     
     private func handleUpdateItems() {
         items = PasteboardStore.shared.items
+        noItemsLabel.isHidden = !items.isEmpty
         tableView.reloadData()
     }
     
