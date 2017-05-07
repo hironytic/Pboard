@@ -19,7 +19,7 @@ platform :ios do
   before_all do
     # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
     
-    carthage
+    # carthage
   end
 
   desc "Runs all the tests"
@@ -43,7 +43,11 @@ platform :ios do
     # match(type: "appstore")
     # snapshot
     gym(scheme: "Pboard") # Build your app - more options available
-    deliver(force: true)
+    deliver(
+      submit_for_review: false,
+      app_icon: 'Artwork/AppIcon.png',
+      force: true
+    )
     # frameit
   end
 

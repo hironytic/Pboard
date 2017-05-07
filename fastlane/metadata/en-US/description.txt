@@ -1,1 +1,9 @@
+Tool for developers! Pasteboard Buddy allows you to investigate general pasteboard (clipboard).
+You can check the data that your developing app copies.
+You can look copied data by other apps to support them in your app.
 
+Features:
+- List multiple items and multiple representations.
+- View images on pasteboard.
+- Open URLs on pasteboard.
+- Send binary data on pasteboard to iTunes.
