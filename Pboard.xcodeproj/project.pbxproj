@@ -21,10 +21,20 @@
 		505D407F1EAA4C7E00A71A58 /* ResourceUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505D407A1EAA4C7E00A71A58 /* ResourceUtils.swift */; };
 		505D40801EAA4C7E00A71A58 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 505D407C1EAA4C7E00A71A58 /* Localizable.strings */; };
 		505D40821EAF94BB00A71A58 /* R+Id.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505D40811EAF94BB00A71A58 /* R+Id.swift */; };
+		50AE62EA1EBEAE69001D7264 /* PboardUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AE62E91EBEAE69001D7264 /* PboardUITests.swift */; };
+		50AE62F21EBEB3A6001D7264 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AE62F11EBEB3A6001D7264 /* SnapshotHelper.swift */; };
+		50AE62F41EBEF1CE001D7264 /* LovelyDog.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 50AE62F31EBEF1CE001D7264 /* LovelyDog.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		500FB7CA1EA4FFDA001C9DE9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 500FB7AD1EA4FFD9001C9DE9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 500FB7B41EA4FFD9001C9DE9;
+			remoteInfo = Pboard;
+		};
+		50AE62EC1EBEAE69001D7264 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 500FB7AD1EA4FFD9001C9DE9 /* Project object */;
 			proxyType = 1;
@@ -52,6 +62,11 @@
 		505D407A1EAA4C7E00A71A58 /* ResourceUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceUtils.swift; sourceTree = "<group>"; };
 		505D407C1EAA4C7E00A71A58 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		505D40811EAF94BB00A71A58 /* R+Id.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "R+Id.swift"; sourceTree = "<group>"; };
+		50AE62E71EBEAE69001D7264 /* PboardUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PboardUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		50AE62E91EBEAE69001D7264 /* PboardUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PboardUITests.swift; sourceTree = "<group>"; };
+		50AE62EB1EBEAE69001D7264 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		50AE62F11EBEB3A6001D7264 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = fastlane/SnapshotHelper.swift; sourceTree = SOURCE_ROOT; };
+		50AE62F31EBEF1CE001D7264 /* LovelyDog.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = LovelyDog.jpg; path = Artwork/LovelyDog.jpg; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +85,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		50AE62E41EBEAE69001D7264 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -78,6 +100,7 @@
 			children = (
 				500FB7B71EA4FFD9001C9DE9 /* Pboard */,
 				500FB7CC1EA4FFDA001C9DE9 /* PboardTests */,
+				50AE62E81EBEAE69001D7264 /* PboardUITests */,
 				500FB7B61EA4FFD9001C9DE9 /* Products */,
 				500FB7DA1EA6367D001C9DE9 /* Frameworks */,
 			);
@@ -88,6 +111,7 @@
 			children = (
 				500FB7B51EA4FFD9001C9DE9 /* Pb Buddy.app */,
 				500FB7C91EA4FFDA001C9DE9 /* PboardTests.xctest */,
+				50AE62E71EBEAE69001D7264 /* PboardUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -169,6 +193,17 @@
 			path = Strings;
 			sourceTree = "<group>";
 		};
+		50AE62E81EBEAE69001D7264 /* PboardUITests */ = {
+			isa = PBXGroup;
+			children = (
+				50AE62E91EBEAE69001D7264 /* PboardUITests.swift */,
+				50AE62F11EBEB3A6001D7264 /* SnapshotHelper.swift */,
+				50AE62F31EBEF1CE001D7264 /* LovelyDog.jpg */,
+				50AE62EB1EBEAE69001D7264 /* Info.plist */,
+			);
+			path = PboardUITests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -208,6 +243,24 @@
 			productReference = 500FB7C91EA4FFDA001C9DE9 /* PboardTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		50AE62E61EBEAE69001D7264 /* PboardUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 50AE62F01EBEAE69001D7264 /* Build configuration list for PBXNativeTarget "PboardUITests" */;
+			buildPhases = (
+				50AE62E31EBEAE69001D7264 /* Sources */,
+				50AE62E41EBEAE69001D7264 /* Frameworks */,
+				50AE62E51EBEAE69001D7264 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				50AE62ED1EBEAE69001D7264 /* PBXTargetDependency */,
+			);
+			name = PboardUITests;
+			productName = PboardUITests;
+			productReference = 50AE62E71EBEAE69001D7264 /* PboardUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -229,6 +282,12 @@
 						ProvisioningStyle = Automatic;
 						TestTargetID = 500FB7B41EA4FFD9001C9DE9;
 					};
+					50AE62E61EBEAE69001D7264 = {
+						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = EPZSBGGQZS;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 500FB7B41EA4FFD9001C9DE9;
+					};
 				};
 			};
 			buildConfigurationList = 500FB7B01EA4FFD9001C9DE9 /* Build configuration list for PBXProject "Pboard" */;
@@ -246,6 +305,7 @@
 			targets = (
 				500FB7B41EA4FFD9001C9DE9 /* Pboard */,
 				500FB7C81EA4FFDA001C9DE9 /* PboardTests */,
+				50AE62E61EBEAE69001D7264 /* PboardUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -266,6 +326,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		50AE62E51EBEAE69001D7264 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				50AE62F41EBEF1CE001D7264 /* LovelyDog.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -313,6 +381,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		50AE62E31EBEAE69001D7264 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				50AE62EA1EBEAE69001D7264 /* PboardUITests.swift in Sources */,
+				50AE62F21EBEB3A6001D7264 /* SnapshotHelper.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -320,6 +397,11 @@
 			isa = PBXTargetDependency;
 			target = 500FB7B41EA4FFD9001C9DE9 /* Pboard */;
 			targetProxy = 500FB7CA1EA4FFDA001C9DE9 /* PBXContainerItemProxy */;
+		};
+		50AE62ED1EBEAE69001D7264 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 500FB7B41EA4FFD9001C9DE9 /* Pboard */;
+			targetProxy = 50AE62EC1EBEAE69001D7264 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -506,6 +588,32 @@
 			};
 			name = Release;
 		};
+		50AE62EE1EBEAE69001D7264 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = EPZSBGGQZS;
+				INFOPLIST_FILE = PboardUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hironytic.PboardUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = Pboard;
+			};
+			name = Debug;
+		};
+		50AE62EF1EBEAE69001D7264 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = EPZSBGGQZS;
+				INFOPLIST_FILE = PboardUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hironytic.PboardUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = Pboard;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -532,6 +640,15 @@
 			buildConfigurations = (
 				500FB7D61EA4FFDA001C9DE9 /* Debug */,
 				500FB7D71EA4FFDA001C9DE9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		50AE62F01EBEAE69001D7264 /* Build configuration list for PBXNativeTarget "PboardUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				50AE62EE1EBEAE69001D7264 /* Debug */,
+				50AE62EF1EBEAE69001D7264 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
