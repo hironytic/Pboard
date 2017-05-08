@@ -46,6 +46,7 @@ platform :ios do
     deliver(
       submit_for_review: false,
       app_icon: 'Artwork/AppIcon.png',
+      app_rating_config_path: 'fastlane/rating_config.json',
       force: true
     )
     # frameit
