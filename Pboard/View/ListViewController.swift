@@ -141,6 +141,10 @@ public func dataTypeString(of data: Any) -> String {
         return ResourceUtils.getString(R.String.valueType_URL)
     case is Data:
         return ResourceUtils.getString(R.String.valueType_data)
+    case is Dictionary<AnyHashable, Any>:
+        return ResourceUtils.getString(R.String.valueType_dictionary)
+    case is Array<Any>:
+        return ResourceUtils.getString(R.String.valueType_array)
     default:
         return ResourceUtils.getString(R.String.valueType_unknown)
     }

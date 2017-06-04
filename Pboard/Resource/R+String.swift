@@ -39,6 +39,8 @@ public extension R {
         public static let valueType_color = "Pboard.valueType_color"
         public static let valueType_URL = "Pboard.valueType_URL"
         public static let valueType_data = "Pboard.valueType_data"
+        public static let valueType_dictionary = "Pboard.valueType_dictionary"
+        public static let valueType_array = "Pboard.valueType_array"
         public static let valueType_unknown = "Pboard.valueType_unknown"
         
         public static let itemHeaderFormat = "Pboard.itemHeaderFormat"
