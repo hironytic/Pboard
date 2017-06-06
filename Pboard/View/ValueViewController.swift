@@ -50,6 +50,8 @@ public class ValueViewController: UITableViewController {
                 valueRowDataSource = URLValueRowDataSource(value: urlValue)
             case let dataValue as Data:
                 valueRowDataSource = DataValueRowDataSource(viewController: self, value: dataValue)
+            case let arrayValue as Array<Any>:
+                valueRowDataSource = ArrayValueRowDataSource(value: arrayValue)
             default:
                 valueRowDataSource = UnknownValueRowDataSource(value: value)
             }
@@ -304,6 +306,36 @@ private class DataValueRowDataSource: ValueRowDataSource {
     }
 }
 
+private class ArrayValueRowDataSource: ValueRowDataSource {
+    private let value: Array<Any>
+    
+    public init(value: Array<Any>) {
+        self.value = value
+    }
+    
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return value.count
+    }
+    
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: R.Id.keyValueCell, for: indexPath) as! KeyValueCell
+        cell.key = "\(indexPath.row)"
+        cell.value = dataTypeString(of: value[indexPath.row])
+        return cell
+    }
+    
+//    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        tableView.deselectRow(at: indexPath, animated: true)
+//        switch indexPath.row {
+//        case 1:
+//            UIApplication.shared.openURL(value)
+//            
+//        default:
+//            break
+//        }
+//    }
+}
+
 private class UnknownValueRowDataSource: ValueRowDataSource {
     private let value: Any
     
@@ -415,5 +447,43 @@ public class ActionCell: UITableViewCell {
     
     public func preferredContentSizeChanged(_ notification: Notification) {
         actionLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
+    }
+}
+
+public class KeyValueCell: UITableViewCell {
+    @IBOutlet private weak var keyLabel: UILabel!
+    @IBOutlet private weak var valueLabel: UILabel!
+    
+    public var key: String? {
+        get {
+            return keyLabel.text
+        }
+        set {
+            keyLabel.text = newValue
+        }
+    }
+    
+    public var value: String? {
+        get {
+            return valueLabel.text
+        }
+        set {
+            valueLabel.text = newValue
+        }
+    }
+    
+    public override func awakeFromNib() {
+        super.awakeFromNib()
+        NotificationCenter.default.addObserver(self, selector: #selector(KeyValueCell.preferredContentSizeChanged(_:)), name: NSNotification.Name.UIContentSizeCategoryDidChange, object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIContentSizeCategoryDidChange, object: nil)
+    }
+    
+    public func preferredContentSizeChanged(_ notification: Notification) {
+        let bodyFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
+        keyLabel.font = bodyFont
+        valueLabel.font = bodyFont
     }
 }
