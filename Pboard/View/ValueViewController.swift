@@ -29,10 +29,14 @@ private protocol ValueRowDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+    func prepare(for segue: UIStoryboardSegue, senderRowAt indexPath: IndexPath)
 }
 
 extension ValueRowDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // Do nothing
+    }
+    func prepare(for segue: UIStoryboardSegue, senderRowAt indexPath: IndexPath) {
         // Do nothing
     }
 }
@@ -52,6 +56,8 @@ public class ValueViewController: UITableViewController {
                 valueRowDataSource = DataValueRowDataSource(viewController: self, value: dataValue)
             case let arrayValue as Array<Any>:
                 valueRowDataSource = ArrayValueRowDataSource(value: arrayValue)
+            case let dictValue as Dictionary<AnyHashable, Any>:
+                valueRowDataSource = DictionaryValueRowDataSource(value: dictValue)
             default:
                 valueRowDataSource = UnknownValueRowDataSource(value: value)
             }
@@ -123,17 +129,18 @@ public class ValueViewController: UITableViewController {
             break
         }
     }
-    
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    public override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let cell = sender as? UITableViewCell else { return }
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        
+        switch sectionTypes[indexPath.section] {
+        case .value:
+            valueRowDataSource.prepare(for: segue, senderRowAt: indexPath)
+        default:
+            break
+        }
     }
-    */
-
 }
 
 private class StringValueRowDataSource: ValueRowDataSource {
@@ -319,21 +326,41 @@ private class ArrayValueRowDataSource: ValueRowDataSource {
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: R.Id.keyValueCell, for: indexPath) as! KeyValueCell
-        cell.key = "\(indexPath.row)"
+        cell.key = ResourceUtils.getString(format: R.String.arrayIndexFormat, indexPath.row)
         cell.value = dataTypeString(of: value[indexPath.row])
         return cell
     }
     
-//    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        tableView.deselectRow(at: indexPath, animated: true)
-//        switch indexPath.row {
-//        case 1:
-//            UIApplication.shared.openURL(value)
-//            
-//        default:
-//            break
-//        }
-//    }
+    public func prepare(for segue: UIStoryboardSegue, senderRowAt indexPath: IndexPath) {
+        guard let valueViewCotnroller = segue.destination as? ValueViewController else { return }
+        valueViewCotnroller.value = value[indexPath.row]
+    }
+}
+
+private class DictionaryValueRowDataSource: ValueRowDataSource {
+    private let value: Array<(AnyHashable, Any)>
+    
+    public init(value: Dictionary<AnyHashable, Any>) {
+        self.value = value.map { ($0, $1) }
+    }
+    
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return value.count
+    }
+    
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: R.Id.keyValueCell, for: indexPath) as! KeyValueCell
+        
+        let pair = value[indexPath.row]
+        cell.key = pair.0.description
+        cell.value = dataTypeString(of: pair.1)
+        return cell
+    }
+    
+    public func prepare(for segue: UIStoryboardSegue, senderRowAt indexPath: IndexPath) {
+        guard let valueViewCotnroller = segue.destination as? ValueViewController else { return }
+        valueViewCotnroller.value = value[indexPath.row].1
+    }
 }
 
 private class UnknownValueRowDataSource: ValueRowDataSource {

@@ -55,6 +55,6 @@ public extension R {
         public static let dataFileNameFormat = "Pboard.dataFileNameFormat"
         public static let failedToSendToITunes = "Pboard.failedToSendToITunes"
         public static let sentToITunes = "Pboard.sentToITunes"
-        
+        public static let arrayIndexFormat = "Pboard.arrayIndexFormat"        
     }
 }

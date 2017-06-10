@@ -49,3 +49,4 @@
 "Pboard.dataFileNameFormat" = "%@.dat";
 "Pboard.failedToSendToITunes" = "Failed";
 "Pboard.sentToITunes" = "Sent";
+"Pboard.arrayIndexFormat" = "Element %d";
