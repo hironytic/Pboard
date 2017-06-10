@@ -24,6 +24,7 @@
 //
 
 import UIKit
+import Eventitic
 
 private protocol ValueRowDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
@@ -65,6 +66,7 @@ public class ValueViewController: UITableViewController {
     }
     
     private var valueRowDataSource: ValueRowDataSource = StringValueRowDataSource(value: "")
+    private var listenerStore: ListenerStore? = nil
     
     private enum SectionType {
         case uti
@@ -78,6 +80,20 @@ public class ValueViewController: UITableViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
     }
 
+    public override func viewWillAppear(_ animated: Bool) {
+        let pbs = PasteboardStore.shared
+        let listenerStore = ListenerStore()
+        self.listenerStore = listenerStore
+        pbs.onUpdate.listen { [weak self] in
+            self?.navigationController?.popToRootViewController(animated: true)
+        }
+        .addToStore(listenerStore)
+    }
+
+    public override func viewDidDisappear(_ animated: Bool) {
+        listenerStore = nil
+    }
+    
     private var sectionTypes: [SectionType] {
         if uti == nil {
             return [.value]
