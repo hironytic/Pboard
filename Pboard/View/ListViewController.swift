@@ -103,6 +103,7 @@ public class ListViewController: UITableViewController {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         
         let representation = items[indexPath.section][indexPath.row]
+        valueViewCotnroller.title = ResourceUtils.getString(format: R.String.itemHeaderFormat, indexPath.section)
         valueViewCotnroller.uti = representation.uti
         valueViewCotnroller.value = representation.data
     }

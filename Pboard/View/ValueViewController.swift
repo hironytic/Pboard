@@ -333,6 +333,7 @@ private class ArrayValueRowDataSource: ValueRowDataSource {
     
     public func prepare(for segue: UIStoryboardSegue, senderRowAt indexPath: IndexPath) {
         guard let valueViewCotnroller = segue.destination as? ValueViewController else { return }
+        valueViewCotnroller.title = ResourceUtils.getString(format: R.String.arrayIndexFormat, indexPath.row)
         valueViewCotnroller.value = value[indexPath.row]
     }
 }
@@ -359,7 +360,9 @@ private class DictionaryValueRowDataSource: ValueRowDataSource {
     
     public func prepare(for segue: UIStoryboardSegue, senderRowAt indexPath: IndexPath) {
         guard let valueViewCotnroller = segue.destination as? ValueViewController else { return }
-        valueViewCotnroller.value = value[indexPath.row].1
+        let pair = value[indexPath.row]
+        valueViewCotnroller.title = pair.0.description
+        valueViewCotnroller.value = pair.1
     }
 }
 
