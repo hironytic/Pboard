@@ -132,10 +132,18 @@ public class RepresentationCell: UITableViewCell {
     }
 }
 
+public extension NSNumber {
+    var isBoolean: Bool {
+        return objCType[0] == 99 /* 'c' */
+    }
+}
+
 public func dataTypeString(of data: Any) -> String {
     switch data {
     case is String:
         return ResourceUtils.getString(R.String.valueType_string)
+    case let numData as NSNumber where numData.isBoolean:
+        return ResourceUtils.getString(R.String.valueType_boolean)
     case is NSNumber:
         return ResourceUtils.getString(R.String.valueType_number)
     case is UIImage:

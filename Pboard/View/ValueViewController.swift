@@ -59,6 +59,8 @@ public class ValueViewController: UITableViewController {
                 valueRowDataSource = ArrayValueRowDataSource(value: arrayValue)
             case let dictValue as Dictionary<AnyHashable, Any>:
                 valueRowDataSource = DictionaryValueRowDataSource(value: dictValue)
+            case let numValue as NSNumber where numValue.isBoolean:
+                valueRowDataSource = BooleanValueRowDataSource(value: numValue)
             default:
                 valueRowDataSource = UnknownValueRowDataSource(value: value)
             }
@@ -385,6 +387,24 @@ private class DictionaryValueRowDataSource: ValueRowDataSource {
         let pair = value[indexPath.row]
         valueViewCotnroller.title = pair.0.description
         valueViewCotnroller.value = pair.1
+    }
+}
+
+private class BooleanValueRowDataSource: ValueRowDataSource {
+    private let value: NSNumber
+    
+    public init(value: NSNumber) {
+        self.value = value
+    }
+    
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: R.Id.stringCell, for: indexPath)
+        (cell as! StringCell).stringValue = ResourceUtils.getString(value.boolValue ? R.String.booleanTrue : R.String.booleanFalse)
+        return cell
     }
 }
 

@@ -29,6 +29,7 @@
 
 "Pboard.valueType_string" = "String";
 "Pboard.valueType_number" = "Number";
+"Pboard.valueType_boolean" = "Boolean";
 "Pboard.valueType_image" = "Image";
 "Pboard.valueType_color" = "Color";
 "Pboard.valueType_URL" = "URL";
@@ -50,3 +51,5 @@
 "Pboard.failedToSendToITunes" = "Failed";
 "Pboard.sentToITunes" = "Sent";
 "Pboard.arrayIndexFormat" = "Element %d";
+"Pboard.booleanTrue" = "True";
+"Pboard.booleanFalse" = "False";

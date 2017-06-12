@@ -35,6 +35,7 @@ public extension R {
         
         public static let valueType_string = "Pboard.valueType_string"
         public static let valueType_number = "Pboard.valueType_number"
+        public static let valueType_boolean = "Pboard.valueType_boolean"
         public static let valueType_image = "Pboard.valueType_image"
         public static let valueType_color = "Pboard.valueType_color"
         public static let valueType_URL = "Pboard.valueType_URL"
@@ -55,6 +56,8 @@ public extension R {
         public static let dataFileNameFormat = "Pboard.dataFileNameFormat"
         public static let failedToSendToITunes = "Pboard.failedToSendToITunes"
         public static let sentToITunes = "Pboard.sentToITunes"
-        public static let arrayIndexFormat = "Pboard.arrayIndexFormat"        
+        public static let arrayIndexFormat = "Pboard.arrayIndexFormat"
+        public static let booleanTrue = "Pboard.booleanTrue"
+        public static let booleanFalse = "Pboard.booleanFalse"
     }
 }
