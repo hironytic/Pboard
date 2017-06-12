@@ -40,6 +40,9 @@ public extension R {
         
         /// Action cell identifier on ValueViewController
         public static let actionCell = "ActionCell"
+        
+        /// Key-Value cell identifier on ValueViewController
+        public static let keyValueCell = "KeyValueCell"
     }
 }
 

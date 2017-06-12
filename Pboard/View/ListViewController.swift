@@ -50,24 +50,28 @@ public class ListViewController: UITableViewController {
         tableView.estimatedRowHeight = 40
         tableView.rowHeight = UITableViewAutomaticDimension
         
-        self.clearsSelectionOnViewWillAppear = false
+        clearsSelectionOnViewWillAppear = true
 //        self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
     public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         handleUpdateItems()
 
         let pbs = PasteboardStore.shared
         let listenerStore = ListenerStore()
         self.listenerStore = listenerStore
-        pbs.onUpdate.listen {
-            [weak self] in self?.handleUpdateItems()
+        pbs.onUpdate.listen { [weak self] in
+            self?.handleUpdateItems()
         }
         .addToStore(listenerStore)
     }
 
     public override func viewDidDisappear(_ animated: Bool) {
-        self.listenerStore = nil
+        listenerStore = nil
+        
+        super.viewDidDisappear(animated)
     }
     
     private func handleUpdateItems() {
@@ -103,6 +107,7 @@ public class ListViewController: UITableViewController {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         
         let representation = items[indexPath.section][indexPath.row]
+        valueViewCotnroller.title = ResourceUtils.getString(format: R.String.itemHeaderFormat, indexPath.section)
         valueViewCotnroller.uti = representation.uti
         valueViewCotnroller.value = representation.data
     }
@@ -127,10 +132,18 @@ public class RepresentationCell: UITableViewCell {
     }
 }
 
+public extension NSNumber {
+    var isBoolean: Bool {
+        return objCType[0] == 99 /* 'c' */
+    }
+}
+
 public func dataTypeString(of data: Any) -> String {
     switch data {
     case is String:
         return ResourceUtils.getString(R.String.valueType_string)
+    case let numData as NSNumber where numData.isBoolean:
+        return ResourceUtils.getString(R.String.valueType_boolean)
     case is NSNumber:
         return ResourceUtils.getString(R.String.valueType_number)
     case is UIImage:
@@ -141,6 +154,12 @@ public func dataTypeString(of data: Any) -> String {
         return ResourceUtils.getString(R.String.valueType_URL)
     case is Data:
         return ResourceUtils.getString(R.String.valueType_data)
+    case is Date:
+        return ResourceUtils.getString(R.String.valueType_date)
+    case is Dictionary<AnyHashable, Any>:
+        return ResourceUtils.getString(R.String.valueType_dictionary)
+    case is Array<Any>:
+        return ResourceUtils.getString(R.String.valueType_array)
     default:
         return ResourceUtils.getString(R.String.valueType_unknown)
     }

@@ -24,15 +24,20 @@
 //
 
 import UIKit
+import Eventitic
 
 private protocol ValueRowDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+    func prepare(for segue: UIStoryboardSegue, senderRowAt indexPath: IndexPath)
 }
 
 extension ValueRowDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // Do nothing
+    }
+    func prepare(for segue: UIStoryboardSegue, senderRowAt indexPath: IndexPath) {
         // Do nothing
     }
 }
@@ -50,6 +55,12 @@ public class ValueViewController: UITableViewController {
                 valueRowDataSource = URLValueRowDataSource(value: urlValue)
             case let dataValue as Data:
                 valueRowDataSource = DataValueRowDataSource(viewController: self, value: dataValue)
+            case let arrayValue as Array<Any>:
+                valueRowDataSource = ArrayValueRowDataSource(value: arrayValue)
+            case let dictValue as Dictionary<AnyHashable, Any>:
+                valueRowDataSource = DictionaryValueRowDataSource(value: dictValue)
+            case let numValue as NSNumber where numValue.isBoolean:
+                valueRowDataSource = BooleanValueRowDataSource(value: numValue)
             default:
                 valueRowDataSource = UnknownValueRowDataSource(value: value)
             }
@@ -57,6 +68,7 @@ public class ValueViewController: UITableViewController {
     }
     
     private var valueRowDataSource: ValueRowDataSource = StringValueRowDataSource(value: "")
+    private var listenerStore: ListenerStore? = nil
     
     private enum SectionType {
         case uti
@@ -68,8 +80,28 @@ public class ValueViewController: UITableViewController {
         
         tableView.estimatedRowHeight = 40
         tableView.rowHeight = UITableViewAutomaticDimension
+        
+        clearsSelectionOnViewWillAppear = true
     }
 
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let pbs = PasteboardStore.shared
+        let listenerStore = ListenerStore()
+        self.listenerStore = listenerStore
+        pbs.onUpdate.listen { [weak self] in
+            self?.navigationController?.popToRootViewController(animated: true)
+        }
+        .addToStore(listenerStore)
+    }
+
+    public override func viewDidDisappear(_ animated: Bool) {
+        listenerStore = nil
+        
+        super.viewDidDisappear(animated)
+    }
+    
     private var sectionTypes: [SectionType] {
         if uti == nil {
             return [.value]
@@ -121,17 +153,18 @@ public class ValueViewController: UITableViewController {
             break
         }
     }
-    
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    public override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let cell = sender as? UITableViewCell else { return }
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        
+        switch sectionTypes[indexPath.section] {
+        case .value:
+            valueRowDataSource.prepare(for: segue, senderRowAt: indexPath)
+        default:
+            break
+        }
     }
-    */
-
 }
 
 private class StringValueRowDataSource: ValueRowDataSource {
@@ -304,6 +337,77 @@ private class DataValueRowDataSource: ValueRowDataSource {
     }
 }
 
+private class ArrayValueRowDataSource: ValueRowDataSource {
+    private let value: Array<Any>
+    
+    public init(value: Array<Any>) {
+        self.value = value
+    }
+    
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return value.count
+    }
+    
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: R.Id.keyValueCell, for: indexPath) as! KeyValueCell
+        cell.key = ResourceUtils.getString(format: R.String.arrayIndexFormat, indexPath.row)
+        cell.value = dataTypeString(of: value[indexPath.row])
+        return cell
+    }
+    
+    public func prepare(for segue: UIStoryboardSegue, senderRowAt indexPath: IndexPath) {
+        guard let valueViewCotnroller = segue.destination as? ValueViewController else { return }
+        valueViewCotnroller.title = ResourceUtils.getString(format: R.String.arrayIndexFormat, indexPath.row)
+        valueViewCotnroller.value = value[indexPath.row]
+    }
+}
+
+private class DictionaryValueRowDataSource: ValueRowDataSource {
+    private let value: Array<(AnyHashable, Any)>
+    
+    public init(value: Dictionary<AnyHashable, Any>) {
+        self.value = value.map { ($0, $1) }
+    }
+    
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return value.count
+    }
+    
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: R.Id.keyValueCell, for: indexPath) as! KeyValueCell
+        
+        let pair = value[indexPath.row]
+        cell.key = pair.0.description
+        cell.value = dataTypeString(of: pair.1)
+        return cell
+    }
+    
+    public func prepare(for segue: UIStoryboardSegue, senderRowAt indexPath: IndexPath) {
+        guard let valueViewCotnroller = segue.destination as? ValueViewController else { return }
+        let pair = value[indexPath.row]
+        valueViewCotnroller.title = pair.0.description
+        valueViewCotnroller.value = pair.1
+    }
+}
+
+private class BooleanValueRowDataSource: ValueRowDataSource {
+    private let value: NSNumber
+    
+    public init(value: NSNumber) {
+        self.value = value
+    }
+    
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: R.Id.stringCell, for: indexPath)
+        (cell as! StringCell).stringValue = ResourceUtils.getString(value.boolValue ? R.String.booleanTrue : R.String.booleanFalse)
+        return cell
+    }
+}
+
 private class UnknownValueRowDataSource: ValueRowDataSource {
     private let value: Any
     
@@ -415,5 +519,43 @@ public class ActionCell: UITableViewCell {
     
     public func preferredContentSizeChanged(_ notification: Notification) {
         actionLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
+    }
+}
+
+public class KeyValueCell: UITableViewCell {
+    @IBOutlet private weak var keyLabel: UILabel!
+    @IBOutlet private weak var valueLabel: UILabel!
+    
+    public var key: String? {
+        get {
+            return keyLabel.text
+        }
+        set {
+            keyLabel.text = newValue
+        }
+    }
+    
+    public var value: String? {
+        get {
+            return valueLabel.text
+        }
+        set {
+            valueLabel.text = newValue
+        }
+    }
+    
+    public override func awakeFromNib() {
+        super.awakeFromNib()
+        NotificationCenter.default.addObserver(self, selector: #selector(KeyValueCell.preferredContentSizeChanged(_:)), name: NSNotification.Name.UIContentSizeCategoryDidChange, object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIContentSizeCategoryDidChange, object: nil)
+    }
+    
+    public func preferredContentSizeChanged(_ notification: Notification) {
+        let bodyFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
+        keyLabel.font = bodyFont
+        valueLabel.font = bodyFont
     }
 }

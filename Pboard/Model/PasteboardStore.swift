@@ -54,8 +54,18 @@ public class PasteboardStore {
         lastChangeCount = pb.changeCount
         items = pb.items.map({ item in
             return item.map({ (key, value) in
-                return ItemRepresentation(uti: key, data: value)
+                return ItemRepresentation(uti: key, data: loadValue(value))
             })
         })
+    }
+    
+    private func loadValue(_ value: Any) -> Any {
+        guard let data = value as? Data else { return value }
+        
+        if let plist = try? PropertyListSerialization.propertyList(from: data, options: [], format: nil) {
+            return plist
+        } else {
+            return data
+        }
     }
 }
