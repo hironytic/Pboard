@@ -34,6 +34,7 @@
 "Pboard.valueType_color" = "Color";
 "Pboard.valueType_URL" = "URL";
 "Pboard.valueType_data" = "Data";
+"Pboard.valueType_date" = "Date";
 "Pboard.valueType_dictionary" = "Dictionary";
 "Pboard.valueType_array" = "Array";
 "Pboard.valueType_unknown" = "Unknown";
