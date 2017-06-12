@@ -18,7 +18,6 @@
 		505D40701EA8EB5300A71A58 /* ValueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505D406F1EA8EB5300A71A58 /* ValueViewController.swift */; };
 		505D407D1EAA4C7E00A71A58 /* R+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505D40781EAA4C7E00A71A58 /* R+String.swift */; };
 		505D407E1EAA4C7E00A71A58 /* R.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505D40791EAA4C7E00A71A58 /* R.swift */; };
-		505D407F1EAA4C7E00A71A58 /* ResourceUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505D407A1EAA4C7E00A71A58 /* ResourceUtils.swift */; };
 		505D40801EAA4C7E00A71A58 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 505D407C1EAA4C7E00A71A58 /* Localizable.strings */; };
 		505D40821EAF94BB00A71A58 /* R+Id.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505D40811EAF94BB00A71A58 /* R+Id.swift */; };
 		50AE62EA1EBEAE69001D7264 /* PboardUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AE62E91EBEAE69001D7264 /* PboardUITests.swift */; };
@@ -59,7 +58,6 @@
 		505D406F1EA8EB5300A71A58 /* ValueViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValueViewController.swift; sourceTree = "<group>"; };
 		505D40781EAA4C7E00A71A58 /* R+String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "R+String.swift"; sourceTree = "<group>"; };
 		505D40791EAA4C7E00A71A58 /* R.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.swift; sourceTree = "<group>"; };
-		505D407A1EAA4C7E00A71A58 /* ResourceUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceUtils.swift; sourceTree = "<group>"; };
 		505D407C1EAA4C7E00A71A58 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		505D40811EAF94BB00A71A58 /* R+Id.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "R+Id.swift"; sourceTree = "<group>"; };
 		50AE62E71EBEAE69001D7264 /* PboardUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PboardUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -180,7 +178,6 @@
 				505D40791EAA4C7E00A71A58 /* R.swift */,
 				505D40811EAF94BB00A71A58 /* R+Id.swift */,
 				505D40781EAA4C7E00A71A58 /* R+String.swift */,
-				505D407A1EAA4C7E00A71A58 /* ResourceUtils.swift */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -368,7 +365,6 @@
 				500FB7B91EA4FFD9001C9DE9 /* AppDelegate.swift in Sources */,
 				505D407D1EAA4C7E00A71A58 /* R+String.swift in Sources */,
 				500FB7D91EA5094A001C9DE9 /* PasteboardStore.swift in Sources */,
-				505D407F1EAA4C7E00A71A58 /* ResourceUtils.swift in Sources */,
 				505D40821EAF94BB00A71A58 /* R+Id.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

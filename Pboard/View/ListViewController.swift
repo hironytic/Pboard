@@ -38,7 +38,7 @@ public class ListViewController: UITableViewController {
         let noItemsLabelParent = UIView()
         tableView.backgroundView = noItemsLabelParent
         noItemsLabel = UILabel()
-        noItemsLabel.text = ResourceUtils.getString(R.String.noItemsFound)
+        noItemsLabel.text = R.String.noItemsFound.localized()
         noItemsLabel.textColor = UIColor.lightGray
         noItemsLabel.sizeToFit()
         noItemsLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -89,7 +89,7 @@ public class ListViewController: UITableViewController {
     }
 
     public override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return ResourceUtils.getString(format: R.String.itemHeaderFormat, section)
+        return R.String.itemHeaderFormat.localized(section)
     }
     
     public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -107,7 +107,7 @@ public class ListViewController: UITableViewController {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         
         let representation = items[indexPath.section][indexPath.row]
-        valueViewCotnroller.title = ResourceUtils.getString(format: R.String.itemHeaderFormat, indexPath.section)
+        valueViewCotnroller.title = R.String.itemHeaderFormat.localized(indexPath.section)
         valueViewCotnroller.uti = representation.uti
         valueViewCotnroller.value = representation.data
     }
@@ -141,26 +141,26 @@ public extension NSNumber {
 public func dataTypeString(of data: Any) -> String {
     switch data {
     case is String:
-        return ResourceUtils.getString(R.String.valueType_string)
+        return R.String.valueType_string.localized()
     case let numData as NSNumber where numData.isBoolean:
-        return ResourceUtils.getString(R.String.valueType_boolean)
+        return R.String.valueType_boolean.localized()
     case is NSNumber:
-        return ResourceUtils.getString(R.String.valueType_number)
+        return R.String.valueType_number.localized()
     case is UIImage:
-        return ResourceUtils.getString(R.String.valueType_image)
+        return R.String.valueType_image.localized()
     case is UIColor:
-        return ResourceUtils.getString(R.String.valueType_color)
+        return R.String.valueType_color.localized()
     case is URL:
-        return ResourceUtils.getString(R.String.valueType_URL)
+        return R.String.valueType_URL.localized()
     case is Data:
-        return ResourceUtils.getString(R.String.valueType_data)
+        return R.String.valueType_data.localized()
     case is Date:
-        return ResourceUtils.getString(R.String.valueType_date)
+        return R.String.valueType_date.localized()
     case is Dictionary<AnyHashable, Any>:
-        return ResourceUtils.getString(R.String.valueType_dictionary)
+        return R.String.valueType_dictionary.localized()
     case is Array<Any>:
-        return ResourceUtils.getString(R.String.valueType_array)
+        return R.String.valueType_array.localized()
     default:
-        return ResourceUtils.getString(R.String.valueType_unknown)
+        return R.String.valueType_unknown.localized()
     }
 }

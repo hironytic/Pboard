@@ -126,9 +126,9 @@ public class ValueViewController: UITableViewController {
     public override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch sectionTypes[section] {
         case .uti:
-            return ResourceUtils.getString(R.String.headerUti)
+            return R.String.headerUti.localized()
         case .value:
-            return ResourceUtils.getString(format: R.String.headerValueFormat, dataTypeString(of: value))
+            return R.String.headerValueFormat.localized(dataTypeString(of: value))
         }
     }
     
@@ -223,7 +223,7 @@ private class URLValueRowDataSource: ValueRowDataSource {
 
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: R.Id.actionCell, for: indexPath)
-            (cell as! ActionCell).title = ResourceUtils.getString(R.String.openThisURL)
+            (cell as! ActionCell).title = R.String.openThisURL.localized()
             return cell
         
         default:
@@ -267,7 +267,7 @@ private class DataValueRowDataSource: ValueRowDataSource {
             
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: R.Id.actionCell, for: indexPath)
-            (cell as! ActionCell).title = ResourceUtils.getString(R.String.sendToITunes)
+            (cell as! ActionCell).title = R.String.sendToITunes.localized()
             return cell
             
         default:
@@ -286,25 +286,25 @@ private class DataValueRowDataSource: ValueRowDataSource {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyyMMddHHmmss"
             let postfix = dateFormatter.string(from: Date())
-            let fileName = ResourceUtils.getString(format: R.String.dataFileNameFormat, postfix)
+            let fileName = R.String.dataFileNameFormat.localized(postfix)
             let fileURL = documentsURL.appendingPathComponent(fileName)
             do {
                 try value.write(to: fileURL, options: .atomic)
             } catch let error {
-                let ac = UIAlertController(title: ResourceUtils.getString(R.String.failedToSendToITunes),
+                let ac = UIAlertController(title: R.String.failedToSendToITunes.localized(),
                                            message: error.localizedDescription,
                                            preferredStyle: .alert)
-                ac.addAction(UIAlertAction(title: ResourceUtils.getString(R.String.alert_OK),
+                ac.addAction(UIAlertAction(title: R.String.alert_OK.localized(),
                                            style: .default,
                                            handler: nil))
                 viewController?.present(ac, animated: true, completion: nil)
                 return
             }
             
-            let ac = UIAlertController(title: ResourceUtils.getString(R.String.sentToITunes),
+            let ac = UIAlertController(title: R.String.sentToITunes.localized(),
                                        message: fileName,
                                        preferredStyle: .alert)
-            ac.addAction(UIAlertAction(title: ResourceUtils.getString(R.String.alert_OK),
+            ac.addAction(UIAlertAction(title: R.String.alert_OK.localized(),
                                        style: .default,
                                        handler: nil))
             viewController?.present(ac, animated: true, completion: nil)
@@ -332,7 +332,7 @@ private class DataValueRowDataSource: ValueRowDataSource {
         formatter.groupingSeparator = NSLocale.current.groupingSeparator
         let sizeStr = formatter.string(for: value.count) ?? ""
         
-        str += "\n\n" + ResourceUtils.getString(format: R.String.dataBytesFormat, sizeStr)
+        str += "\n\n" + R.String.dataBytesFormat.localized(sizeStr)
         return str
     }
 }
@@ -350,14 +350,14 @@ private class ArrayValueRowDataSource: ValueRowDataSource {
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: R.Id.keyValueCell, for: indexPath) as! KeyValueCell
-        cell.key = ResourceUtils.getString(format: R.String.arrayIndexFormat, indexPath.row)
+        cell.key = R.String.arrayIndexFormat.localized(indexPath.row)
         cell.value = dataTypeString(of: value[indexPath.row])
         return cell
     }
     
     public func prepare(for segue: UIStoryboardSegue, senderRowAt indexPath: IndexPath) {
         guard let valueViewCotnroller = segue.destination as? ValueViewController else { return }
-        valueViewCotnroller.title = ResourceUtils.getString(format: R.String.arrayIndexFormat, indexPath.row)
+        valueViewCotnroller.title = R.String.arrayIndexFormat.localized(indexPath.row)
         valueViewCotnroller.value = value[indexPath.row]
     }
 }
@@ -403,7 +403,7 @@ private class BooleanValueRowDataSource: ValueRowDataSource {
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: R.Id.stringCell, for: indexPath)
-        (cell as! StringCell).stringValue = ResourceUtils.getString(value.boolValue ? R.String.booleanTrue : R.String.booleanFalse)
+        (cell as! StringCell).stringValue = (value.boolValue ? R.String.booleanTrue : R.String.booleanFalse).localized()
         return cell
     }
 }
