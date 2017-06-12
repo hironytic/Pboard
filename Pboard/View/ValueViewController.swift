@@ -78,9 +78,13 @@ public class ValueViewController: UITableViewController {
         
         tableView.estimatedRowHeight = 40
         tableView.rowHeight = UITableViewAutomaticDimension
+        
+        clearsSelectionOnViewWillAppear = true
     }
 
     public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         let pbs = PasteboardStore.shared
         let listenerStore = ListenerStore()
         self.listenerStore = listenerStore
@@ -92,6 +96,8 @@ public class ValueViewController: UITableViewController {
 
     public override func viewDidDisappear(_ animated: Bool) {
         listenerStore = nil
+        
+        super.viewDidDisappear(animated)
     }
     
     private var sectionTypes: [SectionType] {

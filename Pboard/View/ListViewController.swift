@@ -50,11 +50,13 @@ public class ListViewController: UITableViewController {
         tableView.estimatedRowHeight = 40
         tableView.rowHeight = UITableViewAutomaticDimension
         
-        clearsSelectionOnViewWillAppear = false
+        clearsSelectionOnViewWillAppear = true
 //        self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
     public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         handleUpdateItems()
 
         let pbs = PasteboardStore.shared
@@ -68,6 +70,8 @@ public class ListViewController: UITableViewController {
 
     public override func viewDidDisappear(_ animated: Bool) {
         listenerStore = nil
+        
+        super.viewDidDisappear(animated)
     }
     
     private func handleUpdateItems() {
