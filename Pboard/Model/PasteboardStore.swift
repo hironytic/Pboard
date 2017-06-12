@@ -52,7 +52,6 @@ public class PasteboardStore {
     private func loadFromRealPasteboard() {
         let pb = UIPasteboard.general
         lastChangeCount = pb.changeCount
-        let a = pb.items
         items = pb.items.map({ item in
             return item.map({ (key, value) in
                 return ItemRepresentation(uti: key, data: loadValue(value))
