@@ -50,35 +50,35 @@ public extension R {
     public struct String {
         private init() { }
         
-        public static let alert_OK = ResourceString(key: "Pboard.alert_OK")
+        public static let alertOK = ResourceString(key: "Pboard.alertOK")
         
         public static let noItemsFound = ResourceString(key: "Pboard.noItemsFound")
         
-        public static let valueType_string = ResourceString(key: "Pboard.valueType_string")
-        public static let valueType_number = ResourceString(key: "Pboard.valueType_number")
-        public static let valueType_boolean = ResourceString(key: "Pboard.valueType_boolean")
-        public static let valueType_image = ResourceString(key: "Pboard.valueType_image")
-        public static let valueType_color = ResourceString(key: "Pboard.valueType_color")
-        public static let valueType_URL = ResourceString(key: "Pboard.valueType_URL")
-        public static let valueType_data = ResourceString(key: "Pboard.valueType_data")
-        public static let valueType_date = ResourceString(key: "Pboard.valueType_date")
-        public static let valueType_dictionary = ResourceString(key: "Pboard.valueType_dictionary")
-        public static let valueType_array = ResourceString(key: "Pboard.valueType_array")
-        public static let valueType_unknown = ResourceString(key: "Pboard.valueType_unknown")
+        public static let valueTypeString = ResourceString(key: "Pboard.valueTypeString")
+        public static let valueTypeNumber = ResourceString(key: "Pboard.valueTypeNumber")
+        public static let valueTypeBoolean = ResourceString(key: "Pboard.valueTypeBoolean")
+        public static let valueTypeImage = ResourceString(key: "Pboard.valueTypeImage")
+        public static let valueTypeColor = ResourceString(key: "Pboard.valueTypeColor")
+        public static let valueTypeURL = ResourceString(key: "Pboard.valueTypeURL")
+        public static let valueTypeData = ResourceString(key: "Pboard.valueTypeData")
+        public static let valueTypeDate = ResourceString(key: "Pboard.valueTypeDate")
+        public static let valueTypeDictionary = ResourceString(key: "Pboard.valueTypeDictionary")
+        public static let valueTypeArray = ResourceString(key: "Pboard.valueTypeArray")
+        public static let valueTypeUnknown = ResourceString(key: "Pboard.valueTypeUnknown")
         
-        public static let itemHeaderFormat = ResourceStringFormat(key: "Pboard.itemHeaderFormat")
+        public static let itemHeader = ResourceStringFormat(key: "Pboard.itemHeader.format")
         
         public static let headerUti = ResourceString(key: "Pboard.headerUti")
-        public static let headerValueFormat = ResourceStringFormat(key: "Pboard.headerValueFormat")
+        public static let headerValue = ResourceStringFormat(key: "Pboard.headerValue.format")
         
         public static let openThisURL = ResourceString(key: "Pboard.openThisURL")
         
-        public static let dataBytesFormat = ResourceStringFormat(key: "Pboard.dataBytesFormat")
+        public static let dataBytes = ResourceStringFormat(key: "Pboard.dataBytes.format")
         public static let sendToITunes = ResourceString(key: "Pboard.sendToITunes")
-        public static let dataFileNameFormat = ResourceStringFormat(key: "Pboard.dataFileNameFormat")
+        public static let dataFileName = ResourceStringFormat(key: "Pboard.dataFileName.format")
         public static let failedToSendToITunes = ResourceString(key: "Pboard.failedToSendToITunes")
         public static let sentToITunes = ResourceString(key: "Pboard.sentToITunes")
-        public static let arrayIndexFormat = ResourceStringFormat(key: "Pboard.arrayIndexFormat")
+        public static let arrayIndex = ResourceStringFormat(key: "Pboard.arrayIndex.format")
         public static let booleanTrue = ResourceString(key: "Pboard.booleanTrue")
         public static let booleanFalse = ResourceString(key: "Pboard.booleanFalse")
     }

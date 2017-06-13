@@ -23,34 +23,34 @@
    THE SOFTWARE.
 */
 
-"Pboard.alert_OK" = "OK";
+"Pboard.alertOK" = "OK";
 
 "Pboard.noItemsFound" = "No items on pasteboard.";
 
-"Pboard.valueType_string" = "String";
-"Pboard.valueType_number" = "Number";
-"Pboard.valueType_boolean" = "Boolean";
-"Pboard.valueType_image" = "Image";
-"Pboard.valueType_color" = "Color";
-"Pboard.valueType_URL" = "URL";
-"Pboard.valueType_data" = "Data";
-"Pboard.valueType_date" = "Date";
-"Pboard.valueType_dictionary" = "Dictionary";
-"Pboard.valueType_array" = "Array";
-"Pboard.valueType_unknown" = "Unknown";
+"Pboard.valueTypeString" = "String";
+"Pboard.valueTypeNumber" = "Number";
+"Pboard.valueTypeBoolean" = "Boolean";
+"Pboard.valueTypeImage" = "Image";
+"Pboard.valueTypeColor" = "Color";
+"Pboard.valueTypeURL" = "URL";
+"Pboard.valueTypeData" = "Data";
+"Pboard.valueTypeDate" = "Date";
+"Pboard.valueTypeDictionary" = "Dictionary";
+"Pboard.valueTypeArray" = "Array";
+"Pboard.valueTypeUnknown" = "Unknown";
 
-"Pboard.itemHeaderFormat" = "Item %d";
+"Pboard.itemHeader.format" = "Item %d";
 
 "Pboard.headerUti" = "UTI";
-"Pboard.headerValueFormat" = "Value (%@)";
+"Pboard.headerValue.format" = "Value (%@)";
 
 "Pboard.openThisURL" = "Open This URL";
 
-"Pboard.dataBytesFormat" = "(%@ bytes)";
+"Pboard.dataBytes.format" = "(%@ bytes)";
 "Pboard.sendToITunes" = "Send to iTunes";
-"Pboard.dataFileNameFormat" = "%@.dat";
+"Pboard.dataFileName.format" = "%@.dat";
 "Pboard.failedToSendToITunes" = "Failed";
 "Pboard.sentToITunes" = "Sent";
-"Pboard.arrayIndexFormat" = "Element %d";
+"Pboard.arrayIndex.format" = "Element %d";
 "Pboard.booleanTrue" = "True";
 "Pboard.booleanFalse" = "False";

@@ -128,7 +128,7 @@ public class ValueViewController: UITableViewController {
         case .uti:
             return R.String.headerUti.localized()
         case .value:
-            return R.String.headerValueFormat.localized(dataTypeString(of: value))
+            return R.String.headerValue.localized(dataTypeString(of: value))
         }
     }
     
@@ -286,7 +286,7 @@ private class DataValueRowDataSource: ValueRowDataSource {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyyMMddHHmmss"
             let postfix = dateFormatter.string(from: Date())
-            let fileName = R.String.dataFileNameFormat.localized(postfix)
+            let fileName = R.String.dataFileName.localized(postfix)
             let fileURL = documentsURL.appendingPathComponent(fileName)
             do {
                 try value.write(to: fileURL, options: .atomic)
@@ -294,7 +294,7 @@ private class DataValueRowDataSource: ValueRowDataSource {
                 let ac = UIAlertController(title: R.String.failedToSendToITunes.localized(),
                                            message: error.localizedDescription,
                                            preferredStyle: .alert)
-                ac.addAction(UIAlertAction(title: R.String.alert_OK.localized(),
+                ac.addAction(UIAlertAction(title: R.String.alertOK.localized(),
                                            style: .default,
                                            handler: nil))
                 viewController?.present(ac, animated: true, completion: nil)
@@ -304,7 +304,7 @@ private class DataValueRowDataSource: ValueRowDataSource {
             let ac = UIAlertController(title: R.String.sentToITunes.localized(),
                                        message: fileName,
                                        preferredStyle: .alert)
-            ac.addAction(UIAlertAction(title: R.String.alert_OK.localized(),
+            ac.addAction(UIAlertAction(title: R.String.alertOK.localized(),
                                        style: .default,
                                        handler: nil))
             viewController?.present(ac, animated: true, completion: nil)
@@ -332,7 +332,7 @@ private class DataValueRowDataSource: ValueRowDataSource {
         formatter.groupingSeparator = NSLocale.current.groupingSeparator
         let sizeStr = formatter.string(for: value.count) ?? ""
         
-        str += "\n\n" + R.String.dataBytesFormat.localized(sizeStr)
+        str += "\n\n" + R.String.dataBytes.localized(sizeStr)
         return str
     }
 }
@@ -350,14 +350,14 @@ private class ArrayValueRowDataSource: ValueRowDataSource {
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: R.Id.keyValueCell, for: indexPath) as! KeyValueCell
-        cell.key = R.String.arrayIndexFormat.localized(indexPath.row)
+        cell.key = R.String.arrayIndex.localized(indexPath.row)
         cell.value = dataTypeString(of: value[indexPath.row])
         return cell
     }
     
     public func prepare(for segue: UIStoryboardSegue, senderRowAt indexPath: IndexPath) {
         guard let valueViewCotnroller = segue.destination as? ValueViewController else { return }
-        valueViewCotnroller.title = R.String.arrayIndexFormat.localized(indexPath.row)
+        valueViewCotnroller.title = R.String.arrayIndex.localized(indexPath.row)
         valueViewCotnroller.value = value[indexPath.row]
     }
 }

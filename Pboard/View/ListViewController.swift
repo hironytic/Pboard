@@ -89,7 +89,7 @@ public class ListViewController: UITableViewController {
     }
 
     public override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return R.String.itemHeaderFormat.localized(section)
+        return R.String.itemHeader.localized(section)
     }
     
     public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -107,7 +107,7 @@ public class ListViewController: UITableViewController {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         
         let representation = items[indexPath.section][indexPath.row]
-        valueViewCotnroller.title = R.String.itemHeaderFormat.localized(indexPath.section)
+        valueViewCotnroller.title = R.String.itemHeader.localized(indexPath.section)
         valueViewCotnroller.uti = representation.uti
         valueViewCotnroller.value = representation.data
     }
@@ -141,26 +141,26 @@ public extension NSNumber {
 public func dataTypeString(of data: Any) -> String {
     switch data {
     case is String:
-        return R.String.valueType_string.localized()
+        return R.String.valueTypeString.localized()
     case let numData as NSNumber where numData.isBoolean:
-        return R.String.valueType_boolean.localized()
+        return R.String.valueTypeBoolean.localized()
     case is NSNumber:
-        return R.String.valueType_number.localized()
+        return R.String.valueTypeNumber.localized()
     case is UIImage:
-        return R.String.valueType_image.localized()
+        return R.String.valueTypeImage.localized()
     case is UIColor:
-        return R.String.valueType_color.localized()
+        return R.String.valueTypeColor.localized()
     case is URL:
-        return R.String.valueType_URL.localized()
+        return R.String.valueTypeURL.localized()
     case is Data:
-        return R.String.valueType_data.localized()
+        return R.String.valueTypeData.localized()
     case is Date:
-        return R.String.valueType_date.localized()
+        return R.String.valueTypeDate.localized()
     case is Dictionary<AnyHashable, Any>:
-        return R.String.valueType_dictionary.localized()
+        return R.String.valueTypeDictionary.localized()
     case is Array<Any>:
-        return R.String.valueType_array.localized()
+        return R.String.valueTypeArray.localized()
     default:
-        return R.String.valueType_unknown.localized()
+        return R.String.valueTypeUnknown.localized()
     }
 }
