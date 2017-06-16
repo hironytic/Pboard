@@ -40,9 +40,22 @@ public class PasteboardStore {
     
     private init() {
         loadFromRealPasteboard()
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(type(of: self).pasteboardChanged(notification:)),
+                                               name: .UIPasteboardChanged,
+                                               object: nil)
     }
     
-    public func reload() {
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc private func pasteboardChanged(notification: NSNotification) {
+        reloadIfNeeded()
+    }
+    
+    public func reloadIfNeeded() {
         if UIPasteboard.general.changeCount != lastChangeCount {
             loadFromRealPasteboard()
             onUpdate.fire(())

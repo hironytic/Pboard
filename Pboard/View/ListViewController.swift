@@ -35,6 +35,10 @@ public class ListViewController: UITableViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
 
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(type(of: self).handleReload(_:)), for: .valueChanged)
+        self.refreshControl = refreshControl
+        
         let noItemsLabelParent = UIView()
         tableView.backgroundView = noItemsLabelParent
         noItemsLabel = UILabel()
@@ -52,13 +56,9 @@ public class ListViewController: UITableViewController {
         
         clearsSelectionOnViewWillAppear = true
 //        self.navigationItem.rightBarButtonItem = self.editButtonItem()
-    }
-    
-    public override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        handleUpdateItems()
 
+        handleUpdateItems()
+        
         let pbs = PasteboardStore.shared
         let listenerStore = ListenerStore()
         self.listenerStore = listenerStore
@@ -67,11 +67,14 @@ public class ListViewController: UITableViewController {
         }
         .addToStore(listenerStore)
     }
-
-    public override func viewDidDisappear(_ animated: Bool) {
-        listenerStore = nil
-        
-        super.viewDidDisappear(animated)
+    
+    deinit {
+        refreshControl?.removeTarget(self, action: #selector(type(of: self).handleReload(_:)), for: .valueChanged)
+    }
+    
+    @objc private func handleReload(_ sender: Any) {
+        PasteboardStore.shared.reloadIfNeeded()
+        refreshControl?.endRefreshing()
     }
     
     private func handleUpdateItems() {
