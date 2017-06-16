@@ -7,3 +7,4 @@ Features:
 - View images on pasteboard.
 - Open URLs on pasteboard.
 - Send binary data on pasteboard to iTunes.
+- Arrays and dictionaries on pasteboard are also supported.

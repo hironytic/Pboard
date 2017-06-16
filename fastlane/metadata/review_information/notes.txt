@@ -1,1 +1,8 @@
+File sharing (via iTunes) is used to send binary data on the pasteboard to Mac/PC.
+Below is the steps to execute this feature.
 
+1. Open Safari and go to https://sites.google.com/hironytic.com/hironytic/hironytic, which is support URL of this app.
+2. Select and copy first paragraph.
+3. Open "Pb Buddy" app.
+4. On "ITEM 0", you will find a row "iOS righ content paste pasteboard type - Data". Tap it.
+6. "Send to iTunes" appears in the last line. This is it.
