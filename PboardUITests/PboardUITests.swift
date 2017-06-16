@@ -82,8 +82,7 @@ class PboardUITests: XCTestCase {
         tablesQuery.staticTexts["public.utf8-plain-text"].tap()
         snapshot("10")
         
-        let pboardValueviewNavigationBar = app.navigationBars["Pboard.ValueView"]
-        let backButton = pboardValueviewNavigationBar.children(matching: .button).matching(identifier: "Back").element(boundBy: 0)
+        let backButton = app.navigationBars["Item 0"].buttons["Pasteboard"]
         backButton.tap()
         
         tablesQuery.staticTexts["public.jpeg"].tap()
