@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--List View Controller-->
+        <!--Pasteboard-->
         <scene sceneID="Pdq-KL-rra">
             <objects>
                 <tableViewController id="PUN-CC-akU" customClass="ListViewController" customModule="Pboard" customModuleProvider="target" sceneMemberID="viewController">
@@ -64,7 +64,7 @@
                             <outlet property="delegate" destination="PUN-CC-akU" id="KQB-AX-hlG"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="Icg-6X-14v"/>
+                    <navigationItem key="navigationItem" title="Pasteboard" id="Icg-6X-14v"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Tq-xN-WEp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
