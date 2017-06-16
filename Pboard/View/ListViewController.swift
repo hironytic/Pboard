@@ -52,13 +52,9 @@ public class ListViewController: UITableViewController {
         
         clearsSelectionOnViewWillAppear = true
 //        self.navigationItem.rightBarButtonItem = self.editButtonItem()
-    }
-    
-    public override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        handleUpdateItems()
 
+        handleUpdateItems()
+        
         let pbs = PasteboardStore.shared
         let listenerStore = ListenerStore()
         self.listenerStore = listenerStore
@@ -66,12 +62,6 @@ public class ListViewController: UITableViewController {
             self?.handleUpdateItems()
         }
         .addToStore(listenerStore)
-    }
-
-    public override func viewDidDisappear(_ animated: Bool) {
-        listenerStore = nil
-        
-        super.viewDidDisappear(animated)
     }
     
     private func handleUpdateItems() {
