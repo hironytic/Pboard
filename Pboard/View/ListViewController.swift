@@ -35,6 +35,10 @@ public class ListViewController: UITableViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
 
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(type(of: self).handleReload(_:)), for: .valueChanged)
+        self.refreshControl = refreshControl
+        
         let noItemsLabelParent = UIView()
         tableView.backgroundView = noItemsLabelParent
         noItemsLabel = UILabel()
@@ -62,6 +66,15 @@ public class ListViewController: UITableViewController {
             self?.handleUpdateItems()
         }
         .addToStore(listenerStore)
+    }
+    
+    deinit {
+        refreshControl?.removeTarget(self, action: #selector(type(of: self).handleReload(_:)), for: .valueChanged)
+    }
+    
+    @objc private func handleReload(_ sender: Any) {
+        PasteboardStore.shared.reloadIfNeeded()
+        refreshControl?.endRefreshing()
     }
     
     private func handleUpdateItems() {
